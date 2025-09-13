@@ -4,6 +4,7 @@ import { SendOtp } from "../../services/Login.js";
 import ToasterAlert from "../../toaster/ToastAlert.jsx";
 import { toast } from "sonner";
 import Loader from "../../loader/Loader.jsx";
+
 const countryCodes = [
   { code: "+91", country: "India" },
   { code: "+1", country: "USA" },
@@ -13,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [countryCode, setCountryCode] = useState("+91");
   const [phonenumber, setPhonenumber] = useState("");
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState();
   const [loading, setLoading] = useState(false);
   const validateForm = () => {
     const digitOnly = /^\d{10}$/;
@@ -54,7 +55,15 @@ const Login = () => {
         <div className="row">
           <div className="col-md-4"></div>
           <div className="col-md-4">
-            <div className="card">
+            <div
+              className="card"
+              style={{
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                marginTop: "50px",
+                padding: "20px",
+                borderRadius: "8px",
+              }}
+            >
               <div className="card-body">
                 <p>
                   <b>Sign In</b>
@@ -64,11 +73,12 @@ const Login = () => {
                     <select
                       className="form-select p-1"
                       value={countryCode}
+                      style={{ width: "20%" }}
                       onChange={(e) => setCountryCode(e.target.value)}
                     >
                       {countryCodes.map(({ code, country }) => (
                         <option key={code} value={code}>
-                          {country} ({code})
+                          ({code})
                         </option>
                       ))}
                     </select>
@@ -77,6 +87,7 @@ const Login = () => {
                       className="form-control"
                       placeholder="Enter 10-digit phone number"
                       value={phonenumber}
+                      style={{ width: "80%" }}
                       onChange={(e) => {
                         setPhonenumber(e.target.value.replace(/\D/g, ""));
                         setErrors("");
@@ -85,19 +96,7 @@ const Login = () => {
                     {errors && <div className="invalid-feedback">{errors}</div>}
                   </div>
                   <div className="row mt-3">
-                    <div className="col-md-6">
-                      <input
-                        type="reset"
-                        name="cancel"
-                        id="cancel"
-                        value="Cancel"
-                        className="btn btn-danger"
-                        onClick={() => {
-                          setPhonenumber("");
-                          setErrors("");
-                        }}
-                      />
-                    </div>
+                    <div className="col-md-6"></div>
                     <div className="col-md-6">
                       <input
                         type="submit"

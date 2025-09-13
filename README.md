@@ -41,4 +41,4 @@ Auth: JWT (JSON Web Token)
 
 SMS: Twilio SDK (or alternative)
 
-Frontend: Minimal HTML/CSS/JS page for testing
+Frontend: VITE +React
